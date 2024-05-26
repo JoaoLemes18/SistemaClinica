@@ -1,25 +1,39 @@
 @import "../../styles/variables.scss";
 
 input {
-  background: $color-black-secondary;
-  color: $color-medium-gray;
-  border: 1px solid $border-color-gray;
+  border: none;
   border-radius: 10px;
+  background-color: $color-light-gray;
   font-size: 16px;
   height: 25px;
   padding: 1rem;
   outline: none;
-}
+  transition: box-shadow 0.3s ease;
 
-input:focus {
-  border: 1px solid $color-medium-gray;
-}
+  &:focus {
+    box-shadow: 0 0 0 2px $color-medium-gray;
+  }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: $color-medium-gray !important;
-  -webkit-box-shadow: 0 0 0px 1000px $color-black-secondary inset;
-  color: white;
-  transition: background-color 5000s ease-in-out 0s;
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: $color-medium-gray !important;
+    -webkit-box-shadow: 0 0 0px 1000px $color-black-secondary inset;
+    color: white;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  &::placeholder {
+    color: $color-medium-gray;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 2px darken($color-medium-gray, 10%);
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
 }

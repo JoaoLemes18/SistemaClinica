@@ -1,14 +1,14 @@
-@import '../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 input {
-    background: $color-black-secondary;
-    color: $color-medium-gray;
-    border: 1px solid $border-color-gray;
-    border-radius: 10px;
-    font-size: 16px;
-    height: 25px;
-    padding: 1rem;
-    outline: none;
+  background: $color-black-secondary;
+  color: $color-medium-gray;
+  border: 1px solid $border-color-gray;
+  border-radius: 10px;
+  font-size: 16px;
+  height: 25px;
+  padding: 1rem;
+  outline: none;
 }
 
 input:focus {
@@ -16,7 +16,7 @@ input:focus {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: $color-medium-gray !important;
   -webkit-box-shadow: 0 0 0px 1000px $color-black-secondary inset;

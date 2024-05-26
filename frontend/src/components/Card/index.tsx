@@ -1,6 +1,4 @@
-import Button from "./Button";
-import PerfilFirstLetter from "./PerfilFirstLetter";
-import "../styles/CrudUsers.scss";
+import Button from "../Button";
 
 interface Cards {
   id_appointment: number;
@@ -19,9 +17,6 @@ const Card: React.FC<CardProps> = ({ item }) => {
     <div className="container-cards">
       {item.map((item) => (
         <div className="card-customer" key={item.id_appointment}>
-          <div>
-            <PerfilFirstLetter word={item.User.name} />
-          </div>
           <div className="info-container">
             <div>{item.User.name}</div>
             <div>{item.hour}</div>

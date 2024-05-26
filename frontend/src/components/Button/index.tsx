@@ -1,10 +1,9 @@
-import { Icons } from "react-toastify";
-import "../styles/Button.scss";
+import "./styles.scss";
 
 interface ButtonProps {
   content: string;
-  icon?: any;
-  props?: any;
+  icon?: unknown;
+  props?: unknown;
   onClick?: () => void;
 }
 

@@ -16,6 +16,11 @@ const User = sequelize.define('User', {
     password: {
         type: DataTypes.STRING,
         required: true
+    }, 
+
+    token_auth: {
+        type: DataTypes.STRING,
+        require: true
     }
 })
 

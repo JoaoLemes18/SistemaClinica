@@ -4,17 +4,15 @@ const app = express()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
+const Appointments = require('../controllers/AppointmentController')
+
 app.use(cors())
 app.use(cookieParser())
 
 const checkTokenMiddleware = require('../middlewares/checkTokenMiddleware')
 
-const UserController = require('../controllers/UserController')
+router.get('/appointments', checkTokenMiddleware.checkToken, Appointments.listAppointments)
 
-router.post('/auth/register', UserController.createUser)
-
-router.post('/auth/login', UserController.loginUser)
-
-router.get('/users/listUsers', checkTokenMiddleware.checkToken ,UserController.listUsers)
+router.post('/appointments/create', checkTokenMiddleware.checkToken, Appointments.createAppointment)
 
 module.exports = router

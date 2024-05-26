@@ -1,15 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import List from "../pages/List";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import CrudUsers from "../pages/CrudUsers";
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/list" element={<List />} />
+      <Route path="/" element={<RegisterPage />} />
+      <Route path="/listUsers" element={<CrudUsers />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 };

@@ -1,26 +1,32 @@
-import { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from "react";
 
-export const ModalMsgContext = createContext<any>(null)
-
-
-export const ModalProvider = ({children}: any) => {
-    const [msgModal, setMsgModal] = useState(false)
-
-    const handleModal = () => {
-        if(!msgModal) {
-            setMsgModal(true)
-            setTimeout(() => {
-                setMsgModal(false)
-            }, 3000)
-        }
-    }
-
-    return (
-        <ModalMsgContext.Provider value={{ msgModal, handleModal}}>
-            {children}
-        </ModalMsgContext.Provider>
-    )
+interface MsgContextProps {
+  message: string;
+  setMessage: (msg: string) => void;
 }
 
+const ModalMsgContext = createContext<MsgContextProps | undefined>(undefined);
 
+export const ModalProvider: React.FC = ({ children }) => {
+  const [message, setMessage] = useState<string>("");
 
+  const handleModal = () => {
+    // Implementação da lógica para mostrar ou ocultar o modal
+  };
+
+  return (
+    <ModalMsgContext.Provider value={{ message, setMessage, handleModal }}>
+      {children}
+    </ModalMsgContext.Provider>
+  );
+};
+
+export const useModalMsgContext = () => {
+  const context = useContext(ModalMsgContext);
+  if (!context) {
+    throw new Error("useModalMsgContext must be used within a ModalProvider");
+  }
+  return context;
+};
+
+export default ModalMsgContext;

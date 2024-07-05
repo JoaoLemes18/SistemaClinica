@@ -1,113 +1,107 @@
-// COMPONENTS
-import MsgNotification from "../../components/MsgNotification";
+import React, { ChangeEvent, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-
-// STYLES
 import "../../styles/Login&SignPage.scss";
 
-// OTHERS
-import { ModalMsgContext, ModalProvider } from "../../context/MsgContext";
-import { ChangeEvent, useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface FormState {
-  [key: string]: string;
+  cod_prof?: string;
+  nome_prof: string;
+  tipo_prof: number;
+  senha_prof: string;
 }
 
-const LoginPage = () => {
+const Register = () => {
   const navigate = useNavigate();
-
-  const { msgModal, handleModal } = useContext(ModalMsgContext);
-
-  const [form, setForm] = useState<FormState>({
-    email: "",
-    name: "",
-    password: "",
-    confirmpassword: "",
+  const [formState, setFormState] = useState<FormState>({
+    cod_prof: "",
+    nome_prof: "",
+    tipo_prof: 1, // valor padrão
+    senha_prof: "",
   });
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setFormState({ ...formState, [name]: value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      form.email == "" ||
-      form.name == "" ||
-      form.password == "" ||
-      form.confirmpassword == ""
-    ) {
-      handleModal();
-      return;
-    }
-
     try {
-      await axios.post("http://localhost:3000/auth/register", form);
+      const requestData = {
+        cod_prof: formState.cod_prof,
+        nome_prof: formState.nome_prof,
+        tipo_prof: Number(formState.tipo_prof),
+        senha_prof: formState.senha_prof,
+      };
+
+      await axios.post("http://localhost:3000/auth/register", requestData);
+
+      toast.success(`Usuário cadastrado com sucesso!`);
       navigate("/login");
-    } catch (err) {
-      console.log(err);
+    } catch (err: unknown) {
+      const error = err as AxiosError;
+      console.error("Erro ao cadastrar usuário:", error.response?.data);
+      toast.error(
+        "Erro ao cadastrar usuário. Verifique os dados e tente novamente."
+      );
     }
   };
 
   return (
-    <ModalProvider>
-      <section className="body">
-        <h1>
-          <span>Bem-Vindo </span> <br /> a Fasiclin.
-        </h1>
-        <form onSubmit={handleSubmit} method="post">
-          <div className="div-two-inputs">
-            <Input
-              onChange={handleInput}
-              value={form.email}
-              name="email"
-              type="email"
-              placeholder="Email"
-            />
-            <Input
-              onChange={handleInput}
-              value={form.name}
-              name="name"
-              type="name"
-              placeholder="Nome"
-            />
-          </div>
-          <Input
+    <section className="body">
+      <h1>
+        <span>Bem-Vindo </span> <br /> a Fasiclin.
+      </h1>
+      <form onSubmit={handleSubmit} method="post">
+        <Input
+          onChange={handleInput}
+          value={formState.cod_prof}
+          name="cod_prof"
+          type="text"
+          placeholder="Código "
+        />
+        <Input
+          onChange={handleInput}
+          value={formState.nome_prof}
+          name="nome_prof"
+          type="text"
+          placeholder="Nome"
+        />
+        <div className="input-group">
+          <label>Tipo do profissional</label>
+          <select
             onChange={handleInput}
-            value={form.password}
-            name="password"
-            type="password"
-            placeholder="Senha"
-          />
-          <Input
-            onChange={handleInput}
-            value={form.confirmpassword}
-            name="confirmpassword"
-            type="password"
-            placeholder="Confirmar Senha"
-          />
-          <p className="p-have-account">
-            Já possui uma conta? <Link to="/login">Login</Link>{" "}
-          </p>
-          <Button content="Cadastrar" />
-        </form>
-
-        {msgModal && (
-          <MsgNotification
-            title={"Preencha os Campos"}
-            subtitle={"Algum dos campos estão vazio"}
-            color={"#D9343A"}
-            typeMsg={"error"}
-          />
-        )}
-      </section>
-    </ModalProvider>
+            value={formState.tipo_prof}
+            name="tipo_prof"
+          >
+            <option value="1">Administrativo</option>
+            <option value="2">Técnico Básico</option>
+            <option value="3">Técnico Supervisor</option>
+            <option value="4">Master</option>
+          </select>
+        </div>
+        <Input
+          onChange={handleInput}
+          value={formState.senha_prof}
+          name="senha_prof"
+          type="password"
+          placeholder="Senha"
+        />
+        <p className="p-have-account">
+          Já possui uma conta? <Link to="/login">Login</Link>{" "}
+        </p>
+        <Button content="Cadastrar" />
+      </form>
+    </section>
   );
 };
 
-export default LoginPage;
+export default Register;

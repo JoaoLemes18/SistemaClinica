@@ -1,24 +1,23 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import axios, { AxiosError } from "axios";
-
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import "../../styles/Login&SignPage.scss";
-
 import { MdOutlineMailOutline } from "react-icons/md";
 import { GrSecure } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
+import "../../styles/Login&SignPage.scss";
+import { toast } from "react-toastify";
 
 interface FormState {
-  [key: string]: string;
+  nome_prof: string;
+  senha_prof: string;
 }
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
   const [form, setForm] = useState<FormState>({
-    email: "",
-    password: "",
+    nome_prof: "",
+    senha_prof: "",
   });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +25,7 @@ const LoginPage = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -34,12 +33,29 @@ const LoginPage = () => {
         "http://localhost:3000/auth/login",
         form
       );
+
       const token = response.data.token;
       document.cookie = `userToken=${token};`;
-      navigate("/listUsers");
+
+      // Exibe mensagem de sucesso ao usuário
+      toast.success("Usuário logado com sucesso!");
+
+      navigate("/home");
     } catch (err: unknown) {
-      const response = (err as AxiosError).response?.data;
-      console.log(response);
+      const error = err as AxiosError;
+
+      if (error.response) {
+        const { status, data } = error.response;
+        if (status === 404) {
+          toast.error("Usuário não encontrado.");
+        } else if (status === 401) {
+          toast.error("Senha incorreta.");
+        } else {
+          toast.error("Erro ao fazer login.");
+        }
+      } else {
+        toast.error("Erro ao conectar ao servidor.");
+      }
     }
   };
 
@@ -48,25 +64,25 @@ const LoginPage = () => {
       <h1>
         <span>Bem-Vindo </span> <br /> a Fasiclin.
       </h1>
-      <form method="post" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Input
           onChange={handleInput}
-          value={form.email}
-          name="email"
+          value={form.nome_prof}
+          name="nome_prof"
           icon={<MdOutlineMailOutline />}
-          type="email"
-          placeholder="Email"
+          type="text"
+          placeholder="Nome"
         />
         <Input
           onChange={handleInput}
-          value={form.password}
-          name="password"
+          value={form.senha_prof}
+          name="senha_prof"
           icon={<GrSecure />}
           type="password"
           placeholder="Senha"
         />
         <p className="p-have-account">
-          Já possui uma conta? <Link to="/register">Cadastrar</Link>{" "}
+          Não possui uma conta? <Link to="/register">Cadastrar</Link>{" "}
         </p>
         <Button content="Entrar" />
       </form>

@@ -1,32 +1,21 @@
-import Button from "../Button";
-
-interface Cards {
-  id_appointment: number;
-  name: string;
-  email: string;
-  hour: string;
-  User: any;
-}
+import React, { ReactNode } from "react";
 
 interface CardProps {
-  item: Cards[];
+  title: string;
+  description: string;
+  link: string;
+  icon: ReactNode; // Definir a propriedade icon como ReactNode
 }
 
-const Card: React.FC<CardProps> = ({ item }) => {
+const Card: React.FC<CardProps> = ({ title, description, link, icon }) => {
   return (
-    <div className="container-cards">
-      {item.map((item) => (
-        <div className="card-customer" key={item.id_appointment}>
-          <div className="info-container">
-            <div>{item.User.name}</div>
-            <div>{item.hour}</div>
-          </div>
-
-          <div className="div-buttons">
-            <Button content="..." />
-          </div>
-        </div>
-      ))}
+    <div className="card">
+      <div className="card-content">
+        {icon && <div className="card-icon">{icon}</div>}
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <a href={link}>Ver mais</a>
+      </div>
     </div>
   );
 };

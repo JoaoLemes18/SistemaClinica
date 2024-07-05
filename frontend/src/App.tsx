@@ -1,17 +1,17 @@
 import { BrowserRouter } from "react-router-dom";
-import { ModalProvider } from "./context/MsgContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AppRoutes from "./routes";
 import Logo from "./components/Logo";
 
 function App() {
   return (
     <BrowserRouter>
-      <ModalProvider>
-        <section className="app" style={{ height: "100vh" }}>
-          <Logo />
-          <AppRoutes />
-        </section>
-      </ModalProvider>
+      <ToastContainer />
+      <section className="app" style={{ height: "100vh" }}>
+        <Logo />
+        <AppRoutes />
+      </section>
     </BrowserRouter>
   );
 }

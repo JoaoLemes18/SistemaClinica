@@ -45,7 +45,6 @@ const Profissional = sequelize.define(
     tableName: "profissional",
   }
 );
-
 // sequelize.sync({ force: true })
 //     .then(() => {
 //         console.log('Tabela Profissional criada com sucesso.');
@@ -53,5 +52,4 @@ const Profissional = sequelize.define(
 //     .catch(error => {
 //         console.error('Erro ao criar a tabela Profissional:', error);
 //     });
-
 module.exports = Profissional;

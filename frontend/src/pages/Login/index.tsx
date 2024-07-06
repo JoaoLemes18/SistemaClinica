@@ -3,7 +3,8 @@ import axios, { AxiosError } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-
+//LOGAR PELO CÓDIGO E SENHA
+//colocar para registra pelo cod da especialidade
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
@@ -13,6 +14,7 @@ const LoginPage = () => {
     nome_prof: "",
     senha_prof: "",
   });
+  const [data, setData] = useState();
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,6 +29,8 @@ const LoginPage = () => {
         "http://localhost:3000/auth/login",
         form
       );
+
+      setData(response.data);
 
       navigate("/home");
     } catch (err: unknown) {

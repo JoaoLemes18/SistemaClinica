@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   FaMicroscope,
   FaStethoscope,
@@ -7,6 +6,7 @@ import {
   FaHeartbeat,
   FaAppleAlt,
   FaBrain,
+  FaTooth,
 } from "react-icons/fa";
 import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack"; // Importar o componente Button
@@ -65,6 +65,11 @@ const Health = () => {
           title="Psicologia"
           icon={<FaBrain size={35} color="#00a32a" />}
           path="/clinic/psychology"
+        />
+        <ClickableCard
+          title="Odontologia"
+          icon={<FaTooth size={35} color="#00a32a" />}
+          path="/clinic/dentistry"
         />
       </div>
     </div>

@@ -13,6 +13,7 @@ import {
   FaHandHoldingUsd,
   FaDollarSign,
   FaCalendarAlt,
+  FaFileMedical,
 } from "react-icons/fa";
 import "./styles.scss";
 import Title from "../../components/Title";
@@ -36,7 +37,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({ title, icon, path }) => {
   );
 };
 
-const Home: React.FC = () => {
+const Home: React.FC = (data) => {
   return (
     <div className="homepage">
       <Title>Bem-vindo a Fasiclin</Title>
@@ -105,6 +106,11 @@ const Home: React.FC = () => {
           title="Transporte"
           icon={<FaTruck size={35} color="#00a32a" />}
           path="/transport"
+        />
+        <ClickableCard
+          title="Prontuário"
+          icon={<FaFileMedical size={35} color="#00a32a" />}
+          path="/medical-records"
         />
       </div>
     </div>

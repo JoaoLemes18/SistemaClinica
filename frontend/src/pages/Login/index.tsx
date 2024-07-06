@@ -3,8 +3,8 @@ import axios, { AxiosError } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { GrSecure } from "react-icons/gr";
+
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -23,27 +23,25 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      // Simulação de chamada à API para login
-      // Substitua pela sua lógica real de autenticação
       const response = await axios.post(
         "http://localhost:3000/auth/login",
         form
       );
 
-      navigate("/home"); // Redireciona para a página inicial após o login
+      navigate("/home");
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.response) {
         const { status } = error.response;
         if (status === 404) {
-          console.error("Usuário não encontrado.");
+          toast.error("Usuário não encontrado.");
         } else if (status === 401) {
-          console.error("Senha incorreta.");
+          toast.error("Senha incorreta.");
         } else {
-          console.error("Erro ao fazer login.");
+          toast.error("Erro ao fazer login.");
         }
       } else {
-        console.error("Erro ao conectar ao servidor.");
+        toast.error("Erro ao conectar ao servidor.");
       }
     }
   };
@@ -56,7 +54,6 @@ const LoginPage = () => {
             onChange={handleInput}
             value={form.nome_prof}
             name="nome_prof"
-            icon={<MdOutlineMailOutline />}
             type="text"
             placeholder="Nome"
           />
@@ -64,7 +61,6 @@ const LoginPage = () => {
             onChange={handleInput}
             value={form.senha_prof}
             name="senha_prof"
-            icon={<GrSecure />}
             type="password"
             placeholder="Senha"
           />

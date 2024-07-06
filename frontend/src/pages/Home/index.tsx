@@ -12,8 +12,10 @@ import {
   FaTruck,
   FaHandHoldingUsd,
   FaDollarSign,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import "./styles.scss";
+import Title from "../../components/Title";
 
 interface ClickableCardProps {
   title: string;
@@ -37,7 +39,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({ title, icon, path }) => {
 const Home: React.FC = () => {
   return (
     <div className="homepage">
-      <h1>Bem-vindo a Fasiclin</h1>
+      <Title>Bem-vindo a Fasiclin</Title>
       <div className="cards-container">
         <ClickableCard
           title="Clínica"
@@ -53,6 +55,11 @@ const Home: React.FC = () => {
           title="Secretaria"
           icon={<FaUserTie size={35} color="#00a32a" />}
           path="/secretary"
+        />
+        <ClickableCard
+          title="Agenda"
+          icon={<FaCalendarAlt size={35} color="#00a32a" />}
+          path="/agenda"
         />
         <ClickableCard
           title="Recursos Humanos"

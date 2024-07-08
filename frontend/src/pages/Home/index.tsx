@@ -17,27 +17,9 @@ import {
 } from "react-icons/fa";
 import "./styles.scss";
 import Title from "../../components/Title";
+import ClickableCard from "../../components/Card";
 
-interface ClickableCardProps {
-  title: string;
-  icon: JSX.Element;
-  path: string;
-}
-
-const ClickableCard: React.FC<ClickableCardProps> = ({ title, icon, path }) => {
-  const handleClick = () => {
-    window.location.href = path;
-  };
-
-  return (
-    <div className="card" onClick={handleClick}>
-      <div className="card-icon">{icon}</div>
-      <h2>{title}</h2>
-    </div>
-  );
-};
-
-const Home: React.FC = (data) => {
+const Home: React.FC = () => {
   return (
     <div className="homepage">
       <Title>Bem-vindo a Fasiclin</Title>

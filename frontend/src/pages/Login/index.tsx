@@ -29,7 +29,7 @@ const LoginPage = () => {
         "http://localhost:3000/auth/login",
         form
       );
-
+      console.log(response);
       setData(response.data);
 
       navigate("/home");

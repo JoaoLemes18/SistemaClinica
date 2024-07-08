@@ -74,7 +74,9 @@ exports.loginUser = async (req, res) => {
       { expiresIn: "10h" }
     );
 
-    res.status(200).json({ msg: "Login Realizado", token });
+    res
+      .status(200)
+      .json({ msg: "Login Realizado", cod: profissional.cod_prof });
   } catch (err) {
     res.status(500).json({ msg: "Erro No Servidor" });
   }

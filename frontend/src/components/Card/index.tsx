@@ -1,21 +1,21 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import "./styles.scss";
 
 interface CardProps {
   title: string;
-  description: string;
-  link: string;
-  icon: ReactNode; // Definir a propriedade icon como ReactNode
+  icon: JSX.Element;
+  path: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, link, icon }) => {
+const Card: React.FC<CardProps> = ({ title, icon, path }) => {
+  const handleClick = () => {
+    window.location.href = path;
+  };
+
   return (
-    <div className="card">
-      <div className="card-content">
-        {icon && <div className="card-icon">{icon}</div>}
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <a href={link}>Ver mais</a>
-      </div>
+    <div className="card" onClick={handleClick}>
+      <div className="card-icon">{icon}</div>
+      <h2>{title}</h2>
     </div>
   );
 };

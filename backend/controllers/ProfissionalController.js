@@ -1,83 +1,78 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const Profissional = require("../models/profissional");
 
 exports.getAllUsers = async (req, res) => {
   try {
     const profissional = await Profissional.findAll();
     if (profissional) res.json(profissional);
-    else res.json({ mg: "db vazio" });
+    else res.json({ msg: "DB vazio" });
   } catch (err) {
     res.json(err);
   }
 };
 
 exports.createUser = async (req, res) => {
-  const { nome_prof, tipo_prof, status_prof, senha_prof } = req.body;
+  const { cod_prof, nome_prof, tipo_prof, status_prof, senha_prof } = req.body;
 
-  if (!nome_prof || !tipo_prof || !status_prof || !senha_prof)
-    return res.status(422).json({ msg: "Os Dados Não Estão Completos" });
+  if (!cod_prof || !nome_prof || !tipo_prof || !status_prof || !senha_prof)
+    return res.status(422).json({ msg: "Os dados não estão completos" });
 
   const salt = await bcrypt.genSalt(12);
   const senhaComHash = await bcrypt.hash(senha_prof, salt);
 
   try {
     const verificaUsuarioCadastrado = await Profissional.findOne({
-      where: { nome_prof },
+      where: { cod_prof },
       raw: true,
     });
 
     if (verificaUsuarioCadastrado)
-      return res.status(422).json({ msg: "Nome de Usuario Já Existe" });
+      return res.status(422).json({ msg: "Código de usuário já existe" });
 
     await Profissional.create({
+      cod_prof,
       nome_prof,
       tipo_prof,
       status_prof,
       senha_prof: senhaComHash,
     });
 
-    return res.status(201).json({ msg: "Usuário Cadastrado" });
+    return res.status(201).json({ msg: "Usuário cadastrado" });
   } catch (err) {
-    return res.status(500).json({ msg: "Erro No Servidor", err });
+    return res.status(500).json({ msg: "Erro no servidor", err });
   }
 };
 
 exports.loginUser = async (req, res) => {
-  const { nome_prof, senha_prof } = req.body;
+  const { cod_prof, senha_prof } = req.body;
 
-  if (!nome_prof) return res.status(422).json({ msg: "Nome Requerido" });
-  if (!senha_prof) return res.status(422).json({ msg: "Senha Requerida" });
+  if (!cod_prof) return res.status(422).json({ msg: "Código requerido" });
+  if (!senha_prof) return res.status(422).json({ msg: "Senha requerida" });
 
-  // Check User Exist
   try {
     const profissional = await Profissional.findOne({
-      where: { nome_prof },
+      where: { cod_prof },
       raw: true,
     });
     if (!profissional)
-      return res.status(404).json({ msg: "Usuário Não Encontrado" });
+      return res.status(404).json({ msg: "Usuário não encontrado" });
 
-    const checkPassword = await bcrypt.compareSync(
+    const checkPassword = await bcrypt.compare(
       senha_prof,
       profissional.senha_prof
     );
-    if (!checkPassword) return res.status(422).json({ msg: "Senha Invalida" });
+    if (!checkPassword) return res.status(422).json({ msg: "Senha inválida" });
 
     const secret = "fasipe123";
-    const token = jwt.sign(
-      {
-        cod_prof: profissional.cod_prof,
-      },
-      secret,
-      { expiresIn: "10h" }
-    );
+    const token = jwt.sign({ cod_prof: profissional.cod_prof }, secret, {
+      expiresIn: "10h",
+    });
 
     res
       .status(200)
-      .json({ msg: "Login Realizado", cod: profissional.cod_prof });
+      .json({ msg: "Login realizado", cod: profissional.cod_prof });
   } catch (err) {
-    res.status(500).json({ msg: "Erro No Servidor" });
+    res.status(500).json({ msg: "Erro no servidor" });
   }
 };

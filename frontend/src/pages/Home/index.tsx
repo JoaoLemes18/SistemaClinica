@@ -1,28 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  FaClinicMedical,
   FaBriefcase,
   FaUserTie,
-  FaClinicMedical,
+  FaCalendarAlt,
   FaUsers,
   FaCalculator,
   FaGavel,
   FaWarehouse,
   FaShoppingCart,
   FaMoneyBillWave,
-  FaTruck,
   FaHandHoldingUsd,
   FaDollarSign,
-  FaCalendarAlt,
+  FaTruck,
   FaFileMedical,
 } from "react-icons/fa";
-import "./styles.scss";
 import Title from "../../components/Title";
 import ClickableCard from "../../components/Card";
+import "./styles.scss";
 
 const Home: React.FC = () => {
+  const [userData, setUserData] = useState<{
+    cod_prof: string;
+    nome_prof: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // Recuperar dados do localStorage ao carregar a página
+    const storedUser = localStorage.getItem("currentUser");
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setUserData(userData);
+    }
+  }, []);
+
   return (
     <div className="homepage">
       <Title>Bem-vindo a Fasiclin</Title>
+
+      {userData && (
+        <div className="user-info">
+          <p>Código do Profissional: {userData.cod_prof}</p>
+          <p>Nome do Profissional: {userData.nome_prof}</p>
+        </div>
+      )}
+
       <div className="cards-container">
         <ClickableCard
           title="Clínica"

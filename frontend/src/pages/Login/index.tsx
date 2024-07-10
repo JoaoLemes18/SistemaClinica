@@ -3,18 +3,15 @@ import axios, { AxiosError } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-//LOGAR PELO CÓDIGO E SENHA
-//colocar para registra pelo cod da especialidade
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    nome_prof: "",
+    cod_prof: "",
     senha_prof: "",
   });
-  const [data, setData] = useState();
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,8 +26,9 @@ const LoginPage = () => {
         "http://localhost:3000/auth/login",
         form
       );
-      console.log(response);
-      setData(response.data);
+
+      localStorage.setItem("cod_prof", response.data.cod_prof);
+      localStorage.setItem("nome_prof", response.data.nome_prof);
 
       navigate("/home");
     } catch (err: unknown) {
@@ -39,7 +37,7 @@ const LoginPage = () => {
         const { status } = error.response;
         if (status === 404) {
           toast.error("Usuário não encontrado.");
-        } else if (status === 401) {
+        } else if (status === 422) {
           toast.error("Senha incorreta.");
         } else {
           toast.error("Erro ao fazer login.");
@@ -56,10 +54,10 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <Input
             onChange={handleInput}
-            value={form.nome_prof}
-            name="nome_prof"
+            value={form.cod_prof}
+            name="cod_prof"
             type="text"
-            placeholder="Nome"
+            placeholder="Código"
           />
           <Input
             onChange={handleInput}

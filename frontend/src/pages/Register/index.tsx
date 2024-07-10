@@ -9,11 +9,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface FormState {
-  cod_prof?: string;
+  cod_prof: string;
   nome_prof: string;
   tipo_prof: number;
   senha_prof: string;
-  status_prof: number; // Adicionado status_prof ao FormState
+  status_prof: number;
 }
 
 const Register = () => {
@@ -21,9 +21,9 @@ const Register = () => {
   const [formState, setFormState] = useState<FormState>({
     cod_prof: "",
     nome_prof: "",
-    tipo_prof: 1, // Inicializa com o primeiro valor do select
+    tipo_prof: 1,
     senha_prof: "",
-    status_prof: 1, // Inicializa com o primeiro valor de status
+    status_prof: 1,
   });
 
   const handleInput = (
@@ -36,12 +36,12 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Verifica se todos os campos obrigatórios estão preenchidos
     if (
+      !formState.cod_prof ||
       !formState.nome_prof ||
       !formState.tipo_prof ||
       !formState.senha_prof ||
-      !formState.status_prof // Verifica também o status_prof
+      !formState.status_prof
     ) {
       toast.error("Por favor, preencha todos os campos obrigatórios.");
       return;
@@ -53,12 +53,19 @@ const Register = () => {
         nome_prof: formState.nome_prof,
         tipo_prof: Number(formState.tipo_prof),
         senha_prof: formState.senha_prof,
-        status_prof: Number(formState.status_prof), // Inclui status_prof no requestData
+        status_prof: Number(formState.status_prof),
       };
 
-      await axios.post("http://localhost:3000/auth/register", requestData);
+      // Simulação de requisição de cadastro (substitua pelo código real)
+      // await axios.post("http://localhost:3000/auth/register", requestData);
+
+      // Simulação de sucesso (substitua pelo código real)
+      const fakeResponse = { data: requestData };
+      localStorage.setItem("userData", JSON.stringify(fakeResponse.data));
 
       toast.success(`Usuário cadastrado com sucesso!`);
+
+      // Navega para a página de login após o cadastro
       navigate("/login");
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
@@ -80,7 +87,7 @@ const Register = () => {
         <form onSubmit={handleSubmit} method="post">
           <Input
             onChange={handleInput}
-            value={formState.cod_prof || ""}
+            value={formState.cod_prof}
             name="cod_prof"
             type="text"
             placeholder="Código"

@@ -33,6 +33,10 @@ const Profissional = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    cod_espec: {
+      type: DataTypes.STRING, // Alterei para STRING conforme mencionado
+      allowNull: false,
+    },
   },
   {
     tableName: "profissional",

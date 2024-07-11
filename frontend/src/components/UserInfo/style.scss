@@ -1,0 +1,28 @@
+@import "../../styles/variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  .user-icon {
+    margin-right: 22px;
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+
+    .user-name {
+      color: #121212; /* Preto */
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-family: "Lato", sans-serif;
+      margin-right: 74px; /* Mantida a margem direita */
+    }
+
+    .user-code {
+      color: #00a32a; /* Verde */
+    }
+  }
+}

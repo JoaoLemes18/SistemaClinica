@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Profissional = require("../models/profissional");
+const Profissional = require("../models/Profissional");
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -8,14 +8,22 @@ exports.getAllUsers = async (req, res) => {
     if (profissional) res.json(profissional);
     else res.json({ msg: "DB vazio" });
   } catch (err) {
-    res.json(err);
+    res.status(500).json({ msg: "Erro no servidor", err });
   }
 };
 
 exports.createUser = async (req, res) => {
-  const { cod_prof, nome_prof, tipo_prof, status_prof, senha_prof } = req.body;
+  const { cod_prof, nome_prof, tipo_prof, status_prof, senha_prof, cod_espec } =
+    req.body;
 
-  if (!cod_prof || !nome_prof || !tipo_prof || !status_prof || !senha_prof)
+  if (
+    !cod_prof ||
+    !nome_prof ||
+    !tipo_prof ||
+    !status_prof ||
+    !senha_prof ||
+    !cod_espec
+  )
     return res.status(422).json({ msg: "Os dados não estão completos" });
 
   const salt = await bcrypt.genSalt(12);
@@ -36,6 +44,7 @@ exports.createUser = async (req, res) => {
       tipo_prof,
       status_prof,
       senha_prof: senhaComHash,
+      cod_espec,
     });
 
     return res.status(201).json({ msg: "Usuário cadastrado" });
@@ -69,10 +78,16 @@ exports.loginUser = async (req, res) => {
       expiresIn: "10h",
     });
 
-    res
-      .status(200)
-      .json({ msg: "Login realizado", cod: profissional.cod_prof });
+    res.status(200).json({
+      msg: "Login realizado",
+      cod_prof: profissional.cod_prof,
+      nome_prof: profissional.nome_prof,
+      tipo_prof: profissional.tipo_prof,
+      status_prof: profissional.status_prof,
+      cod_espec: profissional.cod_espec, // Inclui cod_espec na resposta de login
+      token,
+    });
   } catch (err) {
-    res.status(500).json({ msg: "Erro no servidor" });
+    res.status(500).json({ msg: "Erro no servidor", err });
   }
 };

@@ -27,10 +27,13 @@ const LoginPage = () => {
         form
       );
 
-      localStorage.setItem("cod_prof", response.data.cod_prof);
-      localStorage.setItem("nome_prof", response.data.nome_prof);
-
-      navigate("/home");
+      const userData = response.data;
+      if (userData.cod_prof && userData.nome_prof) {
+        localStorage.setItem("userData", JSON.stringify(userData));
+        navigate("/home");
+      } else {
+        toast.error("Dados de usuário incompletos na resposta do servidor.");
+      }
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.response) {

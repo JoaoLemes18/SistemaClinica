@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import "../../styles/Login&SignPage.scss";
+import "./styles.scss";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

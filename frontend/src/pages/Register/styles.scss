@@ -1,4 +1,4 @@
-@import "../styles/variables.scss";
+@import "../../styles/variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 .body {
   display: flex;
@@ -14,7 +14,7 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
     background-color: $color-white-primary;
-    margin-bottom: 100px;
+    margin-top: 10px;
     form {
       flex: 2;
       display: flex;

@@ -4,6 +4,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Health from "../pages/Health";
+import Admin from "../pages/Administrativo";
+import Secretary from "../pages/Secretaria";
+import NPJ from "../pages/NPJ";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -13,6 +16,9 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/health" element={<Health />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/secretary" element={<Secretary />} />
+      <Route path="/npj" element={<NPJ />} />
     </Routes>
   );
 };

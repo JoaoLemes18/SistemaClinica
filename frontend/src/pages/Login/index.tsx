@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { toast } from "react-toastify";
-
+import "./styles.scss";
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -52,8 +52,8 @@ const LoginPage = () => {
   };
 
   return (
-    <section className="body">
-      <div className="form-container">
+    <section className="login-body">
+      <div className="login-form-container">
         <form onSubmit={handleSubmit}>
           <Input
             onChange={handleInput}

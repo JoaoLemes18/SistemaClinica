@@ -1,5 +1,3 @@
-// Card.tsx
-
 import React from "react";
 import "./styles.scss";
 
@@ -8,15 +6,27 @@ interface CardProps {
   icon: JSX.Element;
   path: string;
   className?: string; // Propriedade opcional para className
+  disabled?: boolean; // Propriedade opcional para desabilitar o card
 }
 
-const Card: React.FC<CardProps> = ({ title, icon, path, className = "" }) => {
+const Card: React.FC<CardProps> = ({
+  title,
+  icon,
+  path,
+  className = "",
+  disabled = false,
+}) => {
   const handleClick = () => {
-    window.location.href = path;
+    if (!disabled) {
+      window.location.href = path;
+    }
   };
 
   return (
-    <div className={`card ${className}`} onClick={handleClick}>
+    <div
+      className={`card ${className} ${disabled ? "disabled-card" : ""}`}
+      onClick={handleClick}
+    >
       <div className="card-icon">{icon}</div>
       <h2>{title}</h2>
     </div>

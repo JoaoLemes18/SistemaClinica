@@ -21,6 +21,7 @@ import ClickableCard from "../../components/Card";
 import UserInfo from "../../components/UserInfo";
 import { setUser } from "../../store/user/userSlice";
 import "./styles.scss";
+import LogoutButton from "../../components/LogoutButton";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,15 +37,21 @@ const Home: React.FC = () => {
 
   return (
     <div className="homepage">
-      <Title>Bem-vindo a Fasiclin</Title>
       <div className="user-info-container">
         <UserInfo />
       </div>
+      <div className="logout-container">
+        <LogoutButton />
+      </div>
+
+      <Title>Bem-vindo a Fasiclin</Title>
+
       <div className="cards-container">
         <ClickableCard
           title="Clínica"
           icon={<FaClinicMedical size={35} color="#00a32a" />}
           path="/health"
+          className="card"
         />
         <ClickableCard
           title="Administrativo"

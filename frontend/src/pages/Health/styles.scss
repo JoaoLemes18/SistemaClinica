@@ -1,5 +1,16 @@
 @import "../../styles/variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+.user-info-container {
+  position: fixed;
+  top: 25px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .clinic-page {
   text-align: center;
   padding: 20px;
@@ -10,8 +21,9 @@
   .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: 20px; /* Espaçamento entre os cards */
     margin-top: 45px;
+    padding: 20px; /* Espaçamento interno para os cards */
 
     .card {
       display: flex;

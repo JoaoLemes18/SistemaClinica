@@ -31,4 +31,10 @@
     color: $color-black-primary;
     margin: 0;
   }
+
+  &.disabled-card {
+    opacity: 0.5; /* Reduz a opacidade para indicar que o card está desabilitado */
+    cursor: not-allowed; /* Altera o cursor para não permitido */
+    pointer-events: none; /* Impede eventos de clique no card */
+  }
 }

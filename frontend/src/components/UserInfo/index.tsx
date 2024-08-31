@@ -18,7 +18,7 @@ const UserInfo = () => {
               <span style={{ color: "#00a32a" }}>{userData.nome_prof}</span>
             </p>
             <p className="user-code">
-              <span style={{ color: "#000" }}>Seu código é o</span>{" "}
+              <span style={{ color: "#000" }}>Seu código é </span>{" "}
               <span style={{ color: "#00a32a" }}>{userData.cod_prof}</span>
             </p>
           </div>

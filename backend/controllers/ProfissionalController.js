@@ -79,12 +79,11 @@ exports.loginUser = async (req, res) => {
     });
 
     res.status(200).json({
-      msg: "Login realizado",
       cod_prof: profissional.cod_prof,
       nome_prof: profissional.nome_prof,
       tipo_prof: profissional.tipo_prof,
       status_prof: profissional.status_prof,
-      cod_espec: profissional.cod_espec, // Inclui cod_espec na resposta de login
+      cod_espec: profissional.cod_espec,
       token,
     });
   } catch (err) {

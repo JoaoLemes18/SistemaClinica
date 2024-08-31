@@ -1,11 +1,9 @@
-// styles/components/H1.scss
-
-@import "../../styles/variables.scss"; // Importe suas variáveis de cores aqui
+@import "../../styles/variables.scss";
 
 .h1 {
   margin-top: 20px;
   color: $color-green;
-  font-size: 2rem; // Exemplo de tamanho de fonte, ajuste conforme necessário
-  font-weight: bold; // Exemplo de peso da fonte, ajuste conforme necessário
-  text-align: center; // Centraliza o texto
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Para pegar parâmetros da URL
 import {
   FaClinicMedical,
   FaBriefcase,
@@ -15,25 +16,38 @@ import {
   FaTruck,
   FaFileMedical,
 } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
 import Title from "../../components/Title";
 import ClickableCard from "../../components/Card";
+import LogoutButton from "../../components/LogoutButton";
 import UserInfo from "../../components/UserInfo";
+
+import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/user/userSlice";
 import "./styles.scss";
-import LogoutButton from "../../components/LogoutButton";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state: any) => state.user);
+  const location = useLocation(); // Hook para capturar o tipo_prof da URL
 
+  // Verifica o tipo_prof na URL e salva no Redux se ainda não estiver setado
   useEffect(() => {
     const storedUser = localStorage.getItem("userData");
+    const params = new URLSearchParams(location.search);
+    const tipoProf = params.get("tipo_prof");
+
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
+
+      // Atualiza o Redux com o tipo_prof da URL (caso necessário)
+      if (tipoProf && parsedUser.tipo_prof !== tipoProf) {
+        parsedUser.tipo_prof = tipoProf; // Adiciona tipo_prof vindo da URL
+        dispatch(setUser(parsedUser)); // Salva no Redux
+      }
+
       dispatch(setUser(parsedUser));
     }
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   return (
     <div className="homepage">

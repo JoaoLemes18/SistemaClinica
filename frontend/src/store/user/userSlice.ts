@@ -4,12 +4,14 @@ interface UserState {
   cod_prof: string;
   nome_prof: string;
   cod_espec: number;
+  tipo_prof: string; // Adiciona o tipo de profissional aqui
 }
 
 const initialState: UserState = {
   cod_prof: "",
   nome_prof: "",
   cod_espec: 0,
+  tipo_prof: "",
 };
 
 const userSlice = createSlice({
@@ -20,11 +22,13 @@ const userSlice = createSlice({
       state.cod_prof = action.payload.cod_prof;
       state.nome_prof = action.payload.nome_prof;
       state.cod_espec = action.payload.cod_espec;
+      state.tipo_prof = action.payload.tipo_prof;
     },
     logoutUser(state) {
       state.cod_prof = "";
       state.nome_prof = "";
       state.cod_espec = 0;
+      state.tipo_prof = "";
 
       localStorage.removeItem("token");
       localStorage.removeItem("userData");

@@ -1,0 +1,44 @@
+@import "../../styles/variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; // Alinhamento para o topo
+  align-items: center;
+  height: 100vh;
+  background-color: $color-green-background;
+  font-family: "Lato", sans-serif;
+
+  .botaovoltar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // Alinhamento para a esquerda
+    width: 100%; // Ocupa a largura total
+    padding-left: 20px; // Margem à esquerda para afastar do canto
+    margin-bottom: 10px; // Espaçamento abaixo do botão de voltar
+  }
+
+  .titulo {
+    text-align: center; // Centraliza o título
+    margin: 10px 0; // Ajusta a margem acima e abaixo do título
+  }
+
+  .form-container {
+    display: flex;
+    width: min(800px, 90%);
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: $color-white-primary;
+    margin-top: 10px; // Espaço acima do formulário, pode ser ajustado
+
+    form {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 15px;
+    }
+  }
+}

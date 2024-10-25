@@ -11,9 +11,15 @@ const Agenda = () => {
       <ButtonBack to="/home">Voltar</ButtonBack>
       <div className="cards-container">
         <Card
-          title="Cadastro de Procedimentos"
+          title="Cadastro de Especialidade"
           icon={<FaFileMedical size={35} color="#00a32a" />}
-          path="/agenda/cadastro-de-procedimentos"
+          path="/agenda/cadastro-de-especialidade"
+        />
+        <Card
+          title="Cadastro de Procedimento"
+          icon={<FaFileMedical size={35} color="#00a32a" />}
+          path="/agenda/cadastro-de-procedimento
+          "
         />
         <Card
           title="Subsistema"

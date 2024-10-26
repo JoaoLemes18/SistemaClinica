@@ -10,11 +10,10 @@ import CadastroEspec from "../pages/CadastroEspec/index.js";
 import CadastroProce from "../pages/CadastroProce/index.js";
 import Secretary from "../pages/Secretaria/index.js";
 import NPJ from "../pages/NPJ";
-import PrivateRoute from "./PrivateRoute"; // Importe o PrivateRoute
+import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes: React.FC = () => {
-  // Verifique se o usuário está autenticado
-  const isAuthenticated = localStorage.getItem("user") !== null; // Substitua 'user' pela chave que você usa
+  const isAuthenticated = localStorage.getItem("userData") !== null;
 
   return (
     <Routes>
@@ -22,7 +21,6 @@ const AppRoutes: React.FC = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
 
-      {/* Rotas protegidas */}
       <Route
         path="/home"
         element={

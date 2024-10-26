@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import axios, { AxiosError } from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
-//styles
-import Button from "../../components/Button";
-import Input from "../../components/Input";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user/userSlice";
+import { loginUser } from "../../services/api";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
 import "./styles.scss";
 
 const LoginPage = () => {
@@ -27,12 +25,8 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        form
-      );
+      const userData = await loginUser(form);
 
-      const userData = response.data;
       if (userData.cod_prof && userData.nome_prof) {
         localStorage.setItem("userData", JSON.stringify(userData));
 

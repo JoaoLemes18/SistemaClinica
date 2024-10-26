@@ -10,28 +10,82 @@ import CadastroEspec from "../pages/CadastroEspec/index.js";
 import CadastroProce from "../pages/CadastroProce/index.js";
 import Secretary from "../pages/Secretaria/index.js";
 import NPJ from "../pages/NPJ";
+import PrivateRoute from "./PrivateRoute"; // Importe o PrivateRoute
 
 const AppRoutes: React.FC = () => {
+  // Verifique se o usuário está autenticado
+  const isAuthenticated = localStorage.getItem("user") !== null; // Substitua 'user' pela chave que você usa
+
   return (
     <Routes>
       <Route path="/" element={<Register />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/health" element={<Health />} />
-      <Route path="/admin" element={<Admin />} />
 
-      <Route path="/secretary" element={<Secretary />} />
-      <Route path="/agenda" element={<Agenda />} />
+      {/* Rotas protegidas */}
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute isAuthenticated={isAuthenticated} element={<Home />} />
+        }
+      />
+      <Route
+        path="/health"
+        element={
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            element={<Health />}
+          />
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <PrivateRoute isAuthenticated={isAuthenticated} element={<Admin />} />
+        }
+      />
+      <Route
+        path="/secretary"
+        element={
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            element={<Secretary />}
+          />
+        }
+      />
+      <Route
+        path="/agenda"
+        element={
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            element={<Agenda />}
+          />
+        }
+      />
       <Route
         path="/agenda/cadastro-de-especialidade"
-        element={<CadastroEspec />}
+        element={
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            element={<CadastroEspec />}
+          />
+        }
       />
       <Route
         path="/agenda/cadastro-de-procedimento"
-        element={<CadastroProce />}
+        element={
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            element={<CadastroProce />}
+          />
+        }
       />
-      <Route path="/npj" element={<NPJ />} />
+      <Route
+        path="/npj"
+        element={
+          <PrivateRoute isAuthenticated={isAuthenticated} element={<NPJ />} />
+        }
+      />
     </Routes>
   );
 };

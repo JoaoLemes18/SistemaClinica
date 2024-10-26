@@ -9,7 +9,7 @@ const CadastroProce = () => {
   return (
     <section className="body">
       <div className="botaovoltar">
-        <ButtonBack to="/home">Voltar</ButtonBack>
+        <ButtonBack to="/agenda">Voltar</ButtonBack>
       </div>
       <div className="titulo">
         <Title>Cadastro de Procedimento</Title>

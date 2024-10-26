@@ -2,7 +2,8 @@ import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack";
 import Card from "../../components/Card";
 
-import { FaFileMedical } from "react-icons/fa";
+// Importando novos ícones da biblioteca react-icons
+import { FaUserMd, FaStethoscope, FaCalendarAlt } from "react-icons/fa";
 
 const Agenda = () => {
   return (
@@ -12,21 +13,18 @@ const Agenda = () => {
       <div className="cards-container">
         <Card
           title="Cadastro de Especialidade"
-          icon={<FaFileMedical size={35} color="#00a32a" />}
+          icon={<FaUserMd size={35} color="#00a32a" />}
           path="/agenda/cadastro-de-especialidade"
         />
         <Card
           title="Cadastro de Procedimento"
-          icon={<FaFileMedical size={35} color="#00a32a" />}
-          path="/agenda/cadastro-de-procedimento
-          "
+          icon={<FaStethoscope size={35} color="#00a32a" />}
+          path="/agenda/cadastro-de-procedimento"
         />
-
         <Card
           title="Subsistema"
-          icon={<FaFileMedical size={35} color="#00a32a" />}
-          path="/agenda/sistema-agenda
-          "
+          icon={<FaCalendarAlt size={35} color="#00a32a" />}
+          path="/agenda/sistema-agenda"
         />
       </div>
     </div>

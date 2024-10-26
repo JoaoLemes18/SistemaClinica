@@ -34,7 +34,7 @@ const Profissional = sequelize.define(
       allowNull: false,
     },
     cod_espec: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

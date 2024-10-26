@@ -9,7 +9,7 @@ const CadastroEspec = () => {
   return (
     <section className="body">
       <div className="botaovoltar">
-        <ButtonBack to="/home">Voltar</ButtonBack>
+        <ButtonBack to="/agenda">Voltar</ButtonBack>
       </div>
       <div className="titulo">
         <Title>Cadastro de Especialidade</Title>
@@ -20,7 +20,7 @@ const CadastroEspec = () => {
           <Input
             name="cod_especialidade"
             type="text"
-            placeholder="Código Especialidade"
+            placeholder="Código da especialidade"
           />
           <Input name="especialidade" type="text" placeholder="Especialidade" />
           <Button content="Cadastrar" />

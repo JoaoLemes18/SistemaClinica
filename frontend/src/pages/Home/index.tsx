@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/user/userSlice";
-import { cardsData } from "../../data";
+import { cardsData } from "../../utils/data";
 
 import Title from "../../components/Title";
 import ClickableCard from "../../components/Card";
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
   }, [dispatch, location]);
 
   const verifyEspec = (codEspec: string | undefined, espec?: string[]) => {
-    if (!codEspec || !espec) return true; 
+    if (!codEspec || !espec) return true;
     return !espec.includes(codEspec.toString());
   };
 

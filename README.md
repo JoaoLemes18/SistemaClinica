@@ -13,7 +13,7 @@ O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações 
 
 ## Tecnologias Utilizadas
 
-- **Frontend**: React, TypeScript e SCSS
+- **Frontend**: React, TypeScript, Redux, SCSS
 - **Backend**: Node.js, Express
 - **Banco de Dados**: Sequelize
 - **Autenticação**: JWT (JSON Web Token)
@@ -21,6 +21,3 @@ O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações 
 
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues para melhorias.
-
-## Licença
-Este projeto está licenciado sob a MIT License. Consulte o arquivo LICENSE para mais detalhes.

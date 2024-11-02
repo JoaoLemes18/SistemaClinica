@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaMicroscope,
   FaStethoscope,
   FaPalette,
+  FaUserMd,
   FaHeartbeat,
   FaAppleAlt,
   FaBrain,
   FaTooth,
 } from "react-icons/fa";
+
 import Card from "../../components/Card";
 import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack";
@@ -42,7 +44,7 @@ const Health = () => {
         <Card
           espec="10"
           title="Enfermagem"
-          icon={<FaStethoscope size={35} color="#00a32a" />}
+          icon={<FaUserMd size={35} color="#00a32a" />}
           path="/clinic/nursing"
           disabled={verifyEspec("10")}
         />
@@ -84,7 +86,7 @@ const Health = () => {
         <Card
           espec="90"
           title="Medicina"
-          icon={<FaTooth size={35} color="#00a32a" />}
+          icon={<FaStethoscope size={35} color="#00a32a" />}
           path="/clinic/dentistry"
           disabled={verifyEspec("90")}
         />

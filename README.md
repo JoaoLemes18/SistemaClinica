@@ -21,3 +21,6 @@ O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações 
 
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues para melhorias.
+
+## Licença
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.

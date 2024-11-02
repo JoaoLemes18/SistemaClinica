@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./styles.scss";
-
-interface ButtonProps {
-  to: string;
-  children: React.ReactNode;
-}
+import { ButtonProps } from "../../interface/ButtonBack";
 
 const Button: React.FC<ButtonProps> = ({ to, children }) => {
   return (

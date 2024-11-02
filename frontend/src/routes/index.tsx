@@ -6,9 +6,9 @@ import Home from "../pages/Home";
 import Health from "../pages/Health";
 import Admin from "../pages/Administrativo";
 import Agenda from "../pages/Agenda";
-import CadastroEspec from "../pages/CadastroEspec/index.js";
-import CadastroProce from "../pages/CadastroProce/index.js";
-import Secretary from "../pages/Secretaria/index.js";
+import CadastroEspec from "../pages/CadastroEspec";
+import CadastroProce from "../pages/CadastroProce";
+import Secretary from "../pages/Secretaria";
 import NPJ from "../pages/NPJ";
 import PrivateRoute from "./PrivateRoute";
 
@@ -17,7 +17,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Register />} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
 
@@ -28,7 +28,7 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
-        path="/health"
+        path="/clinica"
         element={
           <PrivateRoute
             isAuthenticated={isAuthenticated}
@@ -37,13 +37,13 @@ const AppRoutes: React.FC = () => {
         }
       />
       <Route
-        path="/admin"
+        path="/administrativo"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated} element={<Admin />} />
         }
       />
       <Route
-        path="/secretary"
+        path="/secretaria"
         element={
           <PrivateRoute
             isAuthenticated={isAuthenticated}

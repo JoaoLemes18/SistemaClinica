@@ -1,13 +1,6 @@
 import React from "react";
 import "./styles.scss";
-
-interface CardProps {
-  title: string;
-  icon: JSX.Element;
-  path: string;
-  className?: string; // Propriedade opcional para className
-  disabled?: boolean; // Propriedade opcional para desabilitar o card
-}
+import { CardProps } from "../../interface/Card";
 
 const Card: React.FC<CardProps> = ({
   title,

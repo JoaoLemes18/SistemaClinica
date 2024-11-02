@@ -12,6 +12,7 @@ const CadastroProce = () => {
     cod_proced: "",
     descr_proced: "",
     val_proced: "",
+    cod_espec: "",
   });
 
   // Função para lidar com a mudança dos inputs
@@ -44,6 +45,7 @@ const CadastroProce = () => {
     // Validação básica (opcional)
     if (
       !procedimentoData.cod_proced ||
+      !procedimentoData.cod_espec ||
       !procedimentoData.descr_proced ||
       !procedimentoData.val_proced
     ) {
@@ -55,7 +57,12 @@ const CadastroProce = () => {
     localStorage.setItem("procedimentoData", JSON.stringify(procedimentoData));
 
     // Opcional: Limpar o formulário após o envio
-    setProcedimentoData({ cod_proced: "", descr_proced: "", val_proced: "" });
+    setProcedimentoData({
+      cod_proced: "",
+      descr_proced: "",
+      val_proced: "",
+      cod_espec: "",
+    });
 
     // Opcional: Notificar o usuário
     alert("Procedimento cadastrado com sucesso!");
@@ -77,6 +84,13 @@ const CadastroProce = () => {
             type="text"
             placeholder="Código Procedimento"
             value={procedimentoData.cod_proced}
+            onChange={handleInputChange}
+          />
+          <Input
+            name="cod_espec"
+            type="text"
+            placeholder="Código da Especialidade"
+            value={procedimentoData.cod_espec}
             onChange={handleInputChange}
           />
           <Input

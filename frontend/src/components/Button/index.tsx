@@ -1,11 +1,5 @@
 import "./styles.scss";
-
-interface ButtonProps {
-  content: string;
-  icon?: unknown;
-  props?: unknown;
-  onClick?: () => void;
-}
+import { ButtonProps } from "../../interface/Button";
 
 const Button = ({ content, icon, ...props }: ButtonProps) => {
   return (

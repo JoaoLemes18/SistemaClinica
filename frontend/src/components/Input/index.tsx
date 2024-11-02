@@ -1,14 +1,5 @@
 import "./styles.scss";
-
-interface InputProps {
-  icon?: any;
-  props?: any;
-  placeholder?: string;
-  onChange?: any;
-  value: string;
-  name?: string;
-  type: string;
-}
+import { InputProps } from "../../interface/Input";
 
 const Input = ({ ...props }: InputProps) => {
   return <input {...props} />;

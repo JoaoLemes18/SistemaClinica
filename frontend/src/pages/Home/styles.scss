@@ -31,3 +31,8 @@
 .card-opacity {
   opacity: 1 !important;
 }
+.blocked {
+  opacity: 0.5; /* Define a opacidade do card */
+  pointer-events: none; /* Desabilita a interação com o card */
+  cursor: not-allowed; /* Muda o cursor ao passar por cima do card */
+}

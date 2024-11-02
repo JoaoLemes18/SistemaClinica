@@ -1,25 +1,8 @@
 import React, { useEffect } from "react";
-
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/user/userSlice";
-
-import {
-  FaClinicMedical,
-  FaBriefcase,
-  FaUserTie,
-  FaCalendarAlt,
-  FaUsers,
-  FaCalculator,
-  FaGavel,
-  FaWarehouse,
-  FaShoppingCart,
-  FaMoneyBillWave,
-  FaHandHoldingUsd,
-  FaDollarSign,
-  FaTruck,
-  FaFileMedical,
-} from "react-icons/fa";
+import { cardsData } from "../../data";
 
 import Title from "../../components/Title";
 import ClickableCard from "../../components/Card";
@@ -48,6 +31,11 @@ const Home: React.FC = () => {
     }
   }, [dispatch, location]);
 
+  const verifyEspec = (codEspec: string | undefined, espec?: string[]) => {
+    if (!codEspec || !espec) return true; 
+    return !espec.includes(codEspec.toString());
+  };
+
   return (
     <div className="homepage">
       <div className="user-info-container">
@@ -60,77 +48,15 @@ const Home: React.FC = () => {
       <Title>Bem-vindo a Fasiclin</Title>
 
       <div className="cards-container">
-        <ClickableCard
-          title="Clínica"
-          icon={<FaClinicMedical size={35} color="#00a32a" />}
-          path="/health"
-          className="card"
-        />
-        <ClickableCard
-          title="Administrativo"
-          icon={<FaBriefcase size={35} color="#00a32a" />}
-          path="/admin"
-        />
-        <ClickableCard
-          title="Secretaria"
-          icon={<FaUserTie size={35} color="#00a32a" />}
-          path="/secretary"
-        />
-        <ClickableCard
-          title="Agenda"
-          icon={<FaCalendarAlt size={35} color="#00a32a" />}
-          path="/agenda"
-        />
-        <ClickableCard
-          title="Recursos Humanos"
-          icon={<FaUsers size={35} color="#00a32a" />}
-          path="/hr"
-        />
-        <ClickableCard
-          title="Contábil"
-          icon={<FaCalculator size={35} color="#00a32a" />}
-          path="/accounting"
-        />
-        <ClickableCard
-          title="NPJ"
-          icon={<FaGavel size={35} color="#00a32a" />}
-          path="/npj"
-        />
-        <ClickableCard
-          title="Estoque"
-          icon={<FaWarehouse size={35} color="#00a32a" />}
-          path="/inventory"
-        />
-        <ClickableCard
-          title="Vendas"
-          icon={<FaShoppingCart size={35} color="#00a32a" />}
-          path="/sales"
-        />
-        <ClickableCard
-          title="Compras"
-          icon={<FaMoneyBillWave size={35} color="#00a32a" />}
-          path="/purchasing"
-        />
-        <ClickableCard
-          title="Contas a Pagar"
-          icon={<FaHandHoldingUsd size={35} color="#00a32a" />}
-          path="/accounts-payable"
-        />
-        <ClickableCard
-          title="Contas a Receber"
-          icon={<FaDollarSign size={35} color="#00a32a" />}
-          path="/accounts-receivable"
-        />
-        <ClickableCard
-          title="Transporte"
-          icon={<FaTruck size={35} color="#00a32a" />}
-          path="/transport"
-        />
-        <ClickableCard
-          title="Prontuário"
-          icon={<FaFileMedical size={35} color="#00a32a" />}
-          path="/medical-records"
-        />
+        {cardsData.map((card) => (
+          <ClickableCard
+            key={card.title}
+            title={card.title}
+            icon={card.icon}
+            path={card.path}
+            disabled={verifyEspec(userData?.cod_espec, card.espec)}
+          />
+        ))}
       </div>
     </div>
   );

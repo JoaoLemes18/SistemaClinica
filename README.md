@@ -19,3 +19,8 @@ O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações 
 - **Autenticação**: JWT (JSON Web Token)
 
 
+## Contribuição
+Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests ou abrir issues para melhorias.
+
+## Licença
+Este projeto está licenciado sob a MIT License. Consulte o arquivo LICENSE para mais detalhes.

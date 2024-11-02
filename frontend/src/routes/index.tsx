@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
-import Health from "../pages/Health";
+import Clinica from "../pages/Clinica";
 import Admin from "../pages/Administrativo";
 import Agenda from "../pages/Agenda";
 import CadastroEspec from "../pages/CadastroEspec";
@@ -32,7 +32,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute
             isAuthenticated={isAuthenticated}
-            element={<Health />}
+            element={<Clinica />}
           />
         }
       />

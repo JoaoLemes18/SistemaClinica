@@ -1,7 +1,7 @@
 # Sistema Clínico
 
 ## Descrição
-O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações de pacientes, médicos, agendamentos e prontuários. O objetivo é facilitar o acesso a dados clínicos, melhorar a organização e otimizar o atendimento nas instituições de saúde.
+O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações de pacientes, médicos, agendamentos e prontuários. O objetivo é facilitar o acesso a dados clínicos, melhorar a organização e otimizar o atendimento na Fasiclin.
 
 ## Funcionalidades
 

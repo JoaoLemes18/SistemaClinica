@@ -14,7 +14,7 @@ import Card from "../../components/Card";
 import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack";
 
-const Health = () => {
+const Clinica = () => {
   const [userEspec, setUserEspec] = useState<string | null>(null);
 
   useEffect(() => {
@@ -95,4 +95,4 @@ const Health = () => {
   );
 };
 
-export default Health;
+export default Clinica;

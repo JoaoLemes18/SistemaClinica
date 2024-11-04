@@ -13,6 +13,7 @@ import "./styles.scss";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userData = useSelector((state: any) => state.user);
   const location = useLocation();
 

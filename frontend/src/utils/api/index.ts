@@ -10,6 +10,7 @@ export const registerUser = async (data: {
   tipo_prof: number;
   status_prof: number;
 }) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await axios.post(`${API_BASE_URL}/register`, data);
     return response.data;
@@ -22,6 +23,7 @@ export const loginUser = async (data: {
   cod_prof: string;
   senha_prof: string;
 }) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await axios.post(`${API_BASE_URL}/login`, data);
     return response.data;

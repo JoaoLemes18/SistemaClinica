@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FormState } from "../../utils/interface/FormState";
-import { registerUser } from "../../utils/api";
+import { registerUser } from "../../services/api";
 
 import Button from "../../components/Button";
 import Input from "../../components/Input";

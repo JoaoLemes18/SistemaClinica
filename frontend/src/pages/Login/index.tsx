@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user/userSlice";
-import { loginUser } from "../../utils/api";
+import { loginUser } from "../../services/api";
 
 import Button from "../../components/Button";
 import Input from "../../components/Input";

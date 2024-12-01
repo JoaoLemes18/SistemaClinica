@@ -13,7 +13,7 @@ O Sistema Clínico é uma aplicação desenvolvida para gerenciar informações 
 
 ## Tecnologias Utilizadas
 
-- **Frontend**: React, TypeScript, Redux, SCSS, Axios
+- **Frontend**: React, TypeScript, Redux Toolkit, SCSS, Axios
 - **Backend**: Node.js, Express
 - **Banco de Dados**: Sequelize
 - **Autenticação**: JWT (JSON Web Token)

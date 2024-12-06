@@ -1,17 +1,26 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
+import axios from "axios"; // Para fazer requisições HTTP
 import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-
 import "./styles.scss";
 
-const CadastroEspec = () => {
+// Definindo tipos para os estados
+interface Especialidade {
+  cod_especialidade: string;
+  especialidade: string;
+}
+
+const CadastroEspec: React.FC = () => {
   // Estado para armazenar os dados da especialidade
-  const [especialidadeData, setEspecialidadeData] = useState({
+  const [especialidadeData, setEspecialidadeData] = useState<Especialidade>({
     cod_especialidade: "",
     especialidade: "",
   });
+
+  // Estado para armazenar as especialidades cadastradas
+  const [especialidades, setEspecialidades] = useState<Especialidade[]>([]);
 
   // Função para lidar com a mudança dos inputs
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,19 +28,16 @@ const CadastroEspec = () => {
 
     // Se o campo for 'cod_especialidade', apenas números são permitidos
     if (name === "cod_especialidade" && !/^\d*$/.test(value)) {
-      // Se o valor não for um número, não atualize o estado
       return;
     }
 
-    // Atualiza o estado com o valor válido
     setEspecialidadeData({ ...especialidadeData, [name]: value });
   };
 
   // Função para lidar com o envio do formulário
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validação básica (opcional)
     if (
       !especialidadeData.cod_especialidade ||
       !especialidadeData.especialidade
@@ -40,18 +46,41 @@ const CadastroEspec = () => {
       return;
     }
 
-    // Salvar no localStorage
-    localStorage.setItem(
-      "especialidadeData",
-      JSON.stringify(especialidadeData)
-    );
+    try {
+      // Envia a especialidade para o backend
+      const response = await axios.post(
+        "http://localhost:3000/especialidades",
+        especialidadeData
+      );
 
-    // Opcional: Limpar o formulário após o envio
-    setEspecialidadeData({ cod_especialidade: "", especialidade: "" });
+      // Atualiza a lista de especialidades após o cadastro
+      setEspecialidades((prev) => [...prev, response.data]);
 
-    // Opcional: Notificar o usuário
-    alert("Especialidade cadastrada com sucesso!");
+      // Limpa o formulário
+      setEspecialidadeData({ cod_especialidade: "", especialidade: "" });
+
+      alert("Especialidade cadastrada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao cadastrar especialidade:", error);
+      alert("Erro ao cadastrar especialidade.");
+    }
   };
+
+  // Função para carregar as especialidades ao carregar o componente
+  useEffect(() => {
+    const fetchEspecialidades = async () => {
+      try {
+        const response = await axios.get<Especialidade[]>(
+          "http://localhost:3000/especialidades"
+        );
+        setEspecialidades(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar especialidades:", error);
+      }
+    };
+
+    fetchEspecialidades();
+  }, []);
 
   return (
     <section className="body">
@@ -80,6 +109,22 @@ const CadastroEspec = () => {
           />
           <Button content="Cadastrar" />
         </form>
+      </div>
+
+      <div>
+        <label htmlFor="especialidadeSelect">
+          Selecione uma especialidade:
+        </label>
+        <select id="especialidadeSelect">
+          {especialidades.map((especialidade) => (
+            <option
+              key={especialidade.cod_especialidade}
+              value={especialidade.cod_especialidade}
+            >
+              {`${especialidade.cod_especialidade} - ${especialidade.especialidade}`}
+            </option>
+          ))}
+        </select>
       </div>
     </section>
   );

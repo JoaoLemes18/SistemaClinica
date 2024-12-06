@@ -3,14 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface UserState {
   cod_prof: string;
   nome_prof: string;
-  cod_espec: number;
+  cod_espec: string;
   tipo_prof: string; // Adiciona o tipo de profissional aqui
 }
 
 const initialState: UserState = {
   cod_prof: "",
   nome_prof: "",
-  cod_espec: 0,
+  cod_espec: "",
   tipo_prof: "",
 };
 
@@ -27,7 +27,7 @@ const userSlice = createSlice({
     logoutUser(state) {
       state.cod_prof = "";
       state.nome_prof = "";
-      state.cod_espec = 0;
+      state.cod_espec = "";
       state.tipo_prof = "";
 
       localStorage.removeItem("token");

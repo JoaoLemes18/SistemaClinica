@@ -1,40 +1,43 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../store/user/userSlice";
-import { cardsData } from "../../utils/data";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Title from "../../components/Title";
 import ClickableCard from "../../components/Card";
 import LogoutButton from "../../components/LogoutButton";
 import UserInfo from "../../components/UserInfo";
 
+import { cardsData } from "../../utils/data";
+
 import "./styles.scss";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const userData = useSelector((state: any) => state.user);
-  const location = useLocation();
+  const navigate = useNavigate();
+  // const userData = useSelector((state: any) => state.user); // Dados do usuário do Redux
+  const [userData, setUserData] = useState<any>(null);
 
+  // Recupera os dados do usuário do localStorage ao montar o componente
   useEffect(() => {
     const storedUser = localStorage.getItem("userData");
-    const params = new URLSearchParams(location.search);
-    const tipoProf = params.get("tipo_prof");
-
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-
-      if (tipoProf && parsedUser.tipo_prof !== tipoProf) {
-        parsedUser.tipo_prof = tipoProf;
-      }
-      dispatch(setUser(parsedUser));
+      const { status_prof, token, ...filteredUser } = parsedUser;
+      setUserData(filteredUser);
     }
-  }, [dispatch, location]);
+  }, []);
 
-  const verifyEspec = (codEspec: string | undefined, espec?: string[]) => {
+  // Função para verificar se o card é das clínicas
+  const verifyClinicaEspec = (
+    codEspec: string | undefined,
+    espec?: string[]
+  ) => {
     if (!codEspec || !espec) return true;
-    return !espec.includes(codEspec.toString());
+    return espec.includes(codEspec.toString());
+  };
+
+  // Função para verificar se o card é administrativo
+  const verifyAdminEspec = (tipoProf?: string) => {
+    return tipoProf === "1"; // Administrativo habilitado apenas para tipo_prof === 1
   };
 
   return (
@@ -49,15 +52,28 @@ const Home: React.FC = () => {
       <Title>Bem-vindo a Fasiclin</Title>
 
       <div className="cards-container">
-        {cardsData.map((card) => (
-          <ClickableCard
-            key={card.title}
-            title={card.title}
-            icon={card.icon}
-            path={card.path}
-            disabled={verifyEspec(userData?.cod_espec, card.espec)}
-          />
-        ))}
+        {cardsData.map((card) => {
+          const isMaster = userData?.tipo_prof === 4; // Verifica se é Master
+          const isClinicaCard = card.espec !== undefined;
+
+          // Define se o usuário tem acesso ao card
+          const hasAccess = isMaster
+            ? true // Master tem acesso a tudo
+            : isClinicaCard
+            ? verifyClinicaEspec(userData?.cod_espec, card.espec)
+            : verifyAdminEspec(userData?.tipo_prof);
+
+          return (
+            <ClickableCard
+              key={card.title}
+              title={card.title}
+              icon={card.icon}
+              path={card.path}
+              disabled={!hasAccess} // Desabilita o card se não tiver acesso
+              onClick={() => hasAccess && navigate(card.path)} // Navega apenas se tiver acesso
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FormState } from "../../utils/interface/FormState";
 import { registerUser } from "../../services/api";
-
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import axios from "axios"; // Para fazer requisições
 import "./styles.scss";
 
 const Register = () => {
@@ -21,6 +21,23 @@ const Register = () => {
   });
 
   const [disableOptions, setDisableOptions] = useState<boolean>(false);
+  const [especialidades, setEspecialidades] = useState<any[]>([]); // Estado para armazenar as especialidades
+
+  useEffect(() => {
+    // Função para carregar as especialidades
+    const fetchEspecialidades = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/especialidades"
+        );
+        setEspecialidades(response.data); // Atualiza o estado com as especialidades do backend
+      } catch (error) {
+        console.error("Erro ao carregar especialidades:", error);
+      }
+    };
+
+    fetchEspecialidades();
+  }, []);
 
   useEffect(() => {
     setDisableOptions(formState.tipo_prof === 1);
@@ -125,14 +142,15 @@ const Register = () => {
               name="cod_espec"
               disabled={disableOptions}
             >
-              <option value="00">00 - Biomedicina</option>
-              <option value="20">20 - Estética e Cosmetologia</option>
-              <option value="30">30 - Fisioterapia</option>
-              <option value="40">40 - Nutrição</option>
-              <option value="50">50 - Odontologia</option>
-              <option value="70">70 - Psicologia</option>
-              <option value="80">80 - NPJ</option>
-              <option value="90">90 - Medicina</option>
+              {/* Especialidades dinâmicas carregadas da API */}
+              {especialidades.map((especialidade) => (
+                <option
+                  key={especialidade.cod_especialidade}
+                  value={especialidade.cod_especialidade}
+                >
+                  {`${especialidade.cod_especialidade} - ${especialidade.especialidade}`}
+                </option>
+              ))}
             </select>
           </div>
           <p className="p-have-account">

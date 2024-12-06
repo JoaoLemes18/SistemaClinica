@@ -86,13 +86,7 @@ const CadastroProce = () => {
             value={procedimentoData.cod_proced}
             onChange={handleInputChange}
           />
-          <Input
-            name="cod_espec"
-            type="text"
-            placeholder="Código da Especialidade"
-            value={procedimentoData.cod_espec}
-            onChange={handleInputChange}
-          />
+
           <Input
             name="descr_proced"
             type="text"

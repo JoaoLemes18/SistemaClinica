@@ -1,8 +1,9 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Title from "../../components/Title";
 import ButtonBack from "../../components/ButtonBack";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import axios from "axios"; // Para fazer requisições
 
 import "./styles.scss";
 
@@ -15,8 +16,28 @@ const CadastroProce = () => {
     cod_espec: "",
   });
 
-  // Função para lidar com a mudança dos inputs
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const [especialidades, setEspecialidades] = useState<any[]>([]); // Estado para armazenar as especialidades
+
+  // Função para carregar as especialidades do banco de dados
+  useEffect(() => {
+    const fetchEspecialidades = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/especialidades"
+        );
+        setEspecialidades(response.data); // Atualiza o estado com as especialidades do backend
+      } catch (error) {
+        console.error("Erro ao carregar especialidades:", error);
+      }
+    };
+
+    fetchEspecialidades();
+  }, []); // A dependência vazia [] garante que a requisição seja feita apenas uma vez
+
+  // Função para lidar com a mudança dos inputs e selects
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
 
     // Permitir apenas números para o código do procedimento
@@ -39,33 +60,55 @@ const CadastroProce = () => {
   };
 
   // Função para lidar com o envio do formulário
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validação básica (opcional)
+    // Validação básica
     if (
-      !procedimentoData.cod_proced ||
-      !procedimentoData.cod_espec ||
       !procedimentoData.descr_proced ||
-      !procedimentoData.val_proced
+      !procedimentoData.val_proced ||
+      !procedimentoData.cod_espec
     ) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
 
-    // Salvar no localStorage
-    localStorage.setItem("procedimentoData", JSON.stringify(procedimentoData));
+    try {
+      // Faz a requisição para o backend
+      const response = await fetch("http://localhost:3000/procedimentos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          descr_proced: procedimentoData.descr_proced,
+          val_proced: parseFloat(procedimentoData.val_proced.replace(",", ".")),
+          cod_espec: procedimentoData.cod_espec,
+        }),
+      });
 
-    // Opcional: Limpar o formulário após o envio
-    setProcedimentoData({
-      cod_proced: "",
-      descr_proced: "",
-      val_proced: "",
-      cod_espec: "",
-    });
+      if (response.ok) {
+        alert("Procedimento cadastrado com sucesso!");
 
-    // Opcional: Notificar o usuário
-    alert("Procedimento cadastrado com sucesso!");
+        // Limpar o formulário após o envio
+        setProcedimentoData({
+          cod_proced: "",
+          descr_proced: "",
+          val_proced: "",
+          cod_espec: "",
+        });
+      } else {
+        const errorData = await response.json();
+        alert(
+          `Erro: ${
+            errorData.error || "Não foi possível cadastrar o procedimento."
+          }`
+        );
+      }
+    } catch (error) {
+      console.error("Erro ao conectar ao servidor:", error);
+      alert("Erro ao conectar ao servidor.");
+    }
   };
 
   return (
@@ -101,6 +144,24 @@ const CadastroProce = () => {
             value={procedimentoData.val_proced}
             onChange={handleInputChange}
           />
+
+          {/* Campo select para especialidade, agora com as especialidades carregadas do banco */}
+          <select
+            name="cod_espec"
+            value={procedimentoData.cod_espec}
+            onChange={handleInputChange}
+          >
+            <option value="">Selecione a especialidade</option>
+            {especialidades.map((especialidade) => (
+              <option
+                key={especialidade.cod_especialidade}
+                value={especialidade.cod_especialidade}
+              >
+                {`${especialidade.cod_especialidade} - ${especialidade.especialidade}`}
+              </option>
+            ))}
+          </select>
+
           <Button content="Cadastrar" />
         </form>
       </div>
